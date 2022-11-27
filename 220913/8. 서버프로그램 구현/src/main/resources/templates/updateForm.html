@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품수정화면</title>
+</head>
+
+<body>
+    <h3>상품 수정</h3>
+    <hr>
+    <form id="updateForm" action="" method="post" th:object="${form}">
+        <div>
+            <label for="">상품번호</label>
+            <input type="text" th:field="*{pid}" readonly>
+        </div>
+        <div>
+            <label for="">상품명</label>
+            <input type="text" th:field="*{pname}">
+        </div>
+        <div>
+            <label for="">상품수량</label>
+            <input type="text" th:field="*{count}">
+        </div>
+        <div>
+            <label for="">상품가격</label>
+            <input type="text" th:field="*{price}">
+        </div>
+        <div>
+            <button type="submit">수정내용 저장</button>
+            <button type="button" id="cancelBtn">수정 취소</button>
+        </div>
+    </form>
+    <script th:inline="javascript">
+        cancelBtn.addEventListener('click', e => {
+            const url = [[@{|/product/${form.pid}/edit|}]];
+            location.href = url;
+        });
+    </script>
+</body>
+</html>
