@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품등록화면</title>
+    <style>
+        .errmsg {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: red;
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        ul, li {
+            text-decoration: none;
+            list-style: none;
+        }
+        li {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>상품 등록</h3>
+    <hr>
+    <form id="addForm" action="" method="post" th:object="${form}">
+        <div>
+            <label for="">상품명</label>
+            <input type="text" th:field="*{pname}">
+            <ul th:if="${#fields.hasErrors('pname')}" th:class="errmsg">
+                <li th:each="err : ${#fields.errors('pname')}" th:text="|${err}|"/>
+            </ul>
+        </div>
+        <div>
+            <label for="">상품수량</label>
+            <input type="text" th:field="*{count}">
+            <ul th:if="${#fields.hasErrors('count')}" th:class="errmsg">
+                <li th:each="err : ${#fields.errors('count')}" th:text="|${err}|"/>
+            </ul>
+        </div>
+        <div>
+            <label for="">상품가격</label>
+            <input type="text" th:field="*{price}">
+            <ul th:if="${#fields.hasErrors('price')}" th:class="errmsg">
+                <li th:each="err : ${#fields.errors('price')}" th:text="|${err}|"/>
+            </ul>
+        </div>
+        <div>
+            <button type="submit" id="addBtn">상품 등록</button>
+            <button type="reset">등록 취소</button>
+            <button type="button" th:onclick="|location.href='@{/product}'|">전체상품 목록</button>
+        </div>
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="errmsg" th:each="err : ${#fields.globalErrors()}" th:text="|${err}|"></p>
+        </div>
+    </form>
+    <script>
+        addBtn.addEventListener('click', e => {
+            e.preventDefault();
+            addForm.submit();
+        });
+    </script>
+</body>
+</html>
